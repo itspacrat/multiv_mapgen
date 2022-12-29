@@ -1,0 +1,10 @@
+/target
+/process/*
+/historical
+/.cargo
+/Cargo.lock
+/process*
+/*out*
+/test*
+/tst*
+/pallette*

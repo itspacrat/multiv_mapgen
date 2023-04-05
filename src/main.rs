@@ -9,13 +9,8 @@ use {
         io::Reader,
         ImageBuffer, ImageFormat, ImageOutputFormat, Pixel, Rgb, RgbImage, Rgba, RgbaImage,
     },
-    //rand::{thread_rng, Rng},
     serde::{Deserialize, Serialize},
     serde_json::{from_str, to_string, to_value, Value},
-    /*serenity::{
-    async_trait,
-    model::{channel::Message,prelude::ChannelId, gateway::Ready},
-    prel*/
     std::{
         array,
         collections::HashMap,
@@ -29,11 +24,7 @@ use {
 pub type Pos = usize;
 pub type Pos2D = [Pos;2];
 #[derive(Serialize, Deserialize)]
-pub struct MapRgb {
-    r: u8,
-    g: u8,
-    b: u8,
-}
+pub type MapRgb = [u8;3];
 #[derive(Serialize, Deserialize)]
 pub struct DBItem {
     description: String,

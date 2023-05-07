@@ -78,5 +78,95 @@
         "description":"endpoint tile",
         "rgb":{"r":237,"g":172,"b":59},
         "attributes":["NoPassThrough","State"]
+    },
+    "16": {
+        "description":"nondescript tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "17": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "18": {
+        "description":"grate flooring tile",
+        "rgb":{"r":0,"g":9,"b":46},
+        "attributes":[]
+    },
+    "19": {
+        "description":"reset switch tile",
+        "rgb":{"r":39,"g":0,"b":88},
+        "attributes":["NoPassThrough","State"]
+    },
+    "20": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "21": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "22": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "23": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "24": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "25": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "26": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "27": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "28": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "29": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "30": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "31": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "32": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
+    },
+    "33": {
+        "description":"switch tile",
+        "rgb":{"r":214,"g":200,"b":94},
+        "attributes":[]
     }
 }

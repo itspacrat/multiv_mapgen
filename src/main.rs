@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use image::{load, GenericImageView};
 use serde_json::to_string_pretty;
-
+use modvlo::*;
 use {
     hex::*,
     image::{
@@ -12,10 +12,6 @@ use {
     //rand::{thread_rng, Rng},
     serde::{Deserialize, Serialize},
     serde_json::{from_str, to_string, to_value, Value},
-    /*serenity::{
-    async_trait,
-    model::{channel::Message,prelude::ChannelId, gateway::Ready},
-    prel*/
     std::{
         array,
         collections::HashMap,
@@ -34,40 +30,11 @@ pub struct MapRgb {
     g: u8,
     b: u8,
 }
-#[derive(Serialize, Deserialize)]
-pub struct DBItem {
-    description: String,
-    rgb: MapRgb,
-    attributes: Vec<String>,
-}
-pub type Db = HashMap<u8, DBItem>;
-#[derive(Deserialize, Serialize, Debug, Clone)]
-pub struct ShvftContainer {
-  pub pos: Pos2D,
-  pub inventory: Vec<u8>,
-}
-#[derive(Deserialize, Serialize, Debug, Clone)]
-pub struct ShvftNote {
-  pub pos: Pos2D,
-  pub content: String,
-}
-#[derive(Deserialize, Serialize, Debug, Clone)]
-pub struct ShvftDoor {
-    pub here: Pos2D,
-    pub there: Pos2D,
-    pub exit_map: String,
-    pub exit_direction: char,
-  }
+pub type Db = HashMap<u8, DbItem>;
 fn main() -> Result<(),Box<dyn std::error::Error>> {
-    //
-    //
     println!("loading db");
     let db: Db = from_str(&read_to_string("db.json")?)?;
-    //
-    //
     let maps: Vec<String> = from_str(&read_to_string("process.json")?)?;
-    //
-    //
     for map in maps {
         let mut containers_template: Vec<ShvftContainer> = vec![];
         let mut notes_template: Vec<ShvftNote>= vec![];
@@ -84,6 +51,7 @@ fn main() -> Result<(),Box<dyn std::error::Error>> {
         y_vec.resize(y_max, 0);
         map_data.resize(x_max, y_vec.clone());
         println!("parsing tiles from image data");
+        println!("[{}] pushing keys...",map);
     for (x, y, rgb) in image.pixels() {
         let match_arr = rgb.0;
         for (&key, item) in &db {
@@ -97,7 +65,7 @@ fn main() -> Result<(),Box<dyn std::error::Error>> {
                             exit_map: String::from("Map0")
                         });
                     }
-                    6 => {
+                    6 => { 
                         containers_template.push(ShvftContainer {
                             pos: [x as usize,y as usize],
                             inventory: vec![0,0]
@@ -113,8 +81,10 @@ fn main() -> Result<(),Box<dyn std::error::Error>> {
                 }
                 /* add db item to map */
                 map_data[x as usize][y as usize] = key;
+                /*
                 println!("pushed key @ {},{}: {}", &x, &y, key);
                 println!("key2 {}",key);
+                */
             } else {
             }
         }

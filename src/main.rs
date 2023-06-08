@@ -1,5 +1,5 @@
 #![allow(unused_imports)]
-use image::{load, GenericImageView};
+use image::{load, GenericImageView, open};
 use serde_json::to_string_pretty;
 use modvlo::*;
 use {
@@ -23,7 +23,7 @@ use {
     },
 };
 pub type Pos = usize;
-pub type Pos2D = [Pos;2];
+//pub type Pos2D = [Pos;2];
 #[derive(Serialize, Deserialize)]
 pub struct MapRgb {
     r: u8,
@@ -33,7 +33,28 @@ pub struct MapRgb {
 pub type Db = HashMap<u8, DbItem>;
 fn main() -> Result<(),Box<dyn std::error::Error>> {
     println!("loading db...");
-    let db: Db = (from_str(&read_to_string("db.json")?)?).to_owned();
+    let db: Db = (from_str::<Db>(&read_to_string("db.json")?)?).to_owned();
     
+    let img = open("process/map/test1d/input.png")?;
+    let mut imgout = RgbImage::new(5,5);
+    let mut tiles: Vec<Rgba<u8>> = Vec::new();
+    for (y) in 0_u32..5  {
+        for x in 0_u32..5 {
+            // add pixel to vec
+            let [r,g,b] = [img.get_pixel(x, y)[0], img.get_pixel(x, y)[1], img.get_pixel(x, y)[2]];
+            let push:u8;
+            for (id, dbitem) in db {
+                match [dbitem.rgb[0],dbitem.rgb[1],dbitem.rgb[2]] {
+                    [r,g,b] => {
+                        img.push(id)
+                    }
+                    _ => {}
+                }
+            }
+            
+        }
+    }
+
+    //println!("{:?}",tiles);
     Ok(())
 }

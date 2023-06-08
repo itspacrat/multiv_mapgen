@@ -9,7 +9,6 @@ use {
         io::Reader,
         ImageBuffer, ImageFormat, ImageOutputFormat, Pixel, Rgb, RgbImage, Rgba, RgbaImage,
     },
-    //rand::{thread_rng, Rng},
     serde::{Deserialize, Serialize},
     serde_json::{from_str, to_string, to_value, Value},
     std::{
@@ -24,13 +23,32 @@ use {
 };
 pub type Pos = usize;
 //pub type Pos2D = [Pos;2];
+//#[derive(Serialize, Deserialize)]
+pub type MapRgb = [u8;3];
 #[derive(Serialize, Deserialize)]
-pub struct MapRgb {
-    r: u8,
-    g: u8,
-    b: u8,
+pub struct DBItem {
+    description: String,
+    rgb: MapRgb,
+    attributes: Vec<String>,
 }
-pub type Db = HashMap<u8, DbItem>;
+pub type Db = HashMap<u8, DBItem>;
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub struct ShvftContainer {
+  pub pos: Pos2D,
+  pub inventory: Vec<u8>,
+}
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub struct ShvftNote {
+  pub pos: Pos2D,
+  pub content: String,
+}
+#[derive(Deserialize, Serialize, Debug, Clone)]
+pub struct ShvftDoor {
+    pub here: Pos2D,
+    pub there: Pos2D,
+    pub exit_map: String,
+    pub exit_direction: char,
+  }
 fn main() -> Result<(),Box<dyn std::error::Error>> {
     println!("loading db...");
     let db: Db = (from_str::<Db>(&read_to_string("db.json")?)?).to_owned();

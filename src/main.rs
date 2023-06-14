@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
-use image::{load, GenericImageView, open};
-use serde_json::to_string_pretty;
+use image::{load, open, GenericImageView};
 use modvlo::*;
+use serde_json::to_string_pretty;
 use {
     hex::*,
     image::{
@@ -31,28 +31,28 @@ pub struct DBItem {
 }
 pub type Db = HashMap<u8, DBItem>;
 
-
-fn main() -> Result<(),Box<dyn std::error::Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("loading db...");
     let db: Db = (from_str::<Db>(&read_to_string("db.json")?)?).to_owned();
-    
+
     let img = open("process/map/test1d/input.png")?;
-    let mut imgout = RgbImage::new(img.width(),img.height());
+    let mut imgout = RgbImage::new(img.width(), img.height());
     let mut tiles: Vec<Rgba<u8>> = Vec::new();
-    for (y) in 0_u32..(imgout.height() as usize)  {
+    for (y) in 0_u32..(imgout.height() as usize) {
         for x in 0_u32..(imgout.width() as usize) {
             // add pixel to vec
-            let [r,g,b] = [img.get_pixel(x, y)[0], img.get_pixel(x, y)[1], img.get_pixel(x, y)[2]];
-            let push:u8;
+            let [r, g, b] = [
+                img.get_pixel(x, y)[0],
+                img.get_pixel(x, y)[1],
+                img.get_pixel(x, y)[2],
+            ];
+            let push: u8;
             for (id, dbitem) in db {
-                match [dbitem.rgb[0],dbitem.rgb[1],dbitem.rgb[2]] {
-                    [r,g,b] => {
-                        img.push(id)
-                    }
+                match [dbitem.rgb[0], dbitem.rgb[1], dbitem.rgb[2]] {
+                    [r, g, b] => img.push(id),
                     _ => {}
                 }
             }
-            
         }
     }
 

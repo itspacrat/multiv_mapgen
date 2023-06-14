@@ -22,42 +22,25 @@ use {
     },
 };
 pub type Pos = usize;
-//pub type Pos2D = [Pos;2];
-//#[derive(Serialize, Deserialize)]
-pub type MapRgb = [u8;3];
+
 #[derive(Serialize, Deserialize)]
 pub struct DBItem {
     description: String,
-    rgb: MapRgb,
+    rgb: ShvftRgb,
     attributes: Vec<String>,
 }
 pub type Db = HashMap<u8, DBItem>;
-#[derive(Deserialize, Serialize, Debug, Clone)]
-pub struct ShvftContainer {
-  pub pos: Pos2D,
-  pub inventory: Vec<u8>,
-}
-#[derive(Deserialize, Serialize, Debug, Clone)]
-pub struct ShvftNote {
-  pub pos: Pos2D,
-  pub content: String,
-}
-#[derive(Deserialize, Serialize, Debug, Clone)]
-pub struct ShvftDoor {
-    pub here: Pos2D,
-    pub there: Pos2D,
-    pub exit_map: String,
-    pub exit_direction: char,
-  }
+
+
 fn main() -> Result<(),Box<dyn std::error::Error>> {
     println!("loading db...");
     let db: Db = (from_str::<Db>(&read_to_string("db.json")?)?).to_owned();
     
     let img = open("process/map/test1d/input.png")?;
-    let mut imgout = RgbImage::new(5,5);
+    let mut imgout = RgbImage::new(img.width(),img.height());
     let mut tiles: Vec<Rgba<u8>> = Vec::new();
-    for (y) in 0_u32..5  {
-        for x in 0_u32..5 {
+    for (y) in 0_u32..(imgout.height() as usize)  {
+        for x in 0_u32..(imgout.width() as usize) {
             // add pixel to vec
             let [r,g,b] = [img.get_pixel(x, y)[0], img.get_pixel(x, y)[1], img.get_pixel(x, y)[2]];
             let push:u8;

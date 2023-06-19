@@ -1,7 +1,7 @@
 #![allow(unused_imports)]
 use image::{load, open, GenericImageView};
 use modvlo::*;
-use serde_json::to_string_pretty;
+
 use {
     hex::*,
     image::{
@@ -10,7 +10,7 @@ use {
         ImageBuffer, ImageFormat, ImageOutputFormat, Pixel, Rgb, RgbImage, Rgba, RgbaImage,
     },
     serde::{Deserialize, Serialize},
-    serde_json::{from_str, to_string, to_value, Value},
+    serde_json::{from_str, to_string, to_string_pretty, to_value, Value},
     std::{
         array,
         collections::HashMap,
@@ -77,6 +77,19 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // for debugs
     //out_img.save_with_format("process/map/test1d/out.png", ImageFormat::Png)?;
+
+    let save_map = ShvftMap {
+        width: img.width() as usize,
+        tiles,
+        doors: vec![],
+        notes: vec![],
+        containers: vec![]
+    };
+
+    let out_string = to_string_pretty(&save_map)?;
+
+    let _ = write("process/map/test1d/map.json",out_string);
+
     println!();
    
     Ok(())

@@ -29,33 +29,55 @@ pub struct DBItem {
     rgb: ShvftRgb,
     attributes: Vec<String>,
 }
+
 pub type Db = HashMap<u8, DBItem>;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    println!("loading db...");
-    let db: Db = (from_str::<Db>(&read_to_string("db.json")?)?).to_owned();
 
-    let img = open("process/map/test1d/input.png")?;
-    let mut imgout = RgbImage::new(img.width(), img.height());
-    let mut tiles: Vec<Rgba<u8>> = Vec::new();
-    for (y) in 0_u32..(imgout.height() as usize) {
-        for x in 0_u32..(imgout.width() as usize) {
-            // add pixel to vec
-            let [r, g, b] = [
-                img.get_pixel(x, y)[0],
-                img.get_pixel(x, y)[1],
-                img.get_pixel(x, y)[2],
-            ];
-            let push: u8;
-            for (id, dbitem) in db {
-                match [dbitem.rgb[0], dbitem.rgb[1], dbitem.rgb[2]] {
-                    [r, g, b] => img.push(id),
-                    _ => {}
-                }
+    println!("\n\n---\n* loading db...");
+    let db = from_str::<Db>(&read_to_string("db.json")?)?;
+
+    println!("* loading image data...");
+    let img = open("process/map/test1d/input.png")?.to_rgb8();
+    println!("{:?}", img);
+
+    println!("* creating map boxes...");
+    let mut tiles: Vec<u8> = Vec::new();
+    
+    println!("* pushing data [{}]...",img.width()*img.height());
+    for (p) in img.pixels() {
+        for (dbindex, dbitem) in &db {
+            if dbitem.rgb == [p[0],p[1],p[2]] {
+                println!("({}): {:?} == {:?}",dbindex,dbitem.rgb,[p[0],p[1],p[2]]);
+                tiles.push(*dbindex);
             }
         }
     }
 
-    //println!("{:?}",tiles);
+    let mut out_img = RgbImage::new(img.width(),img.height());
+    
+    for (i,t) in tiles.iter().enumerate() {
+        out_img.put_pixel(
+            //x
+            ((i as u32 %img.width())) as u32,
+            //y
+            (i as f32/img.width() as f32).floor() as u32,
+            //pix
+            *Pixel::from_slice(&(db.get(t).unwrap().rgb))
+        );
+    }
+    
+    println!("\n* done.");
+    
+    for i in 0..tiles.len() {
+        if i % img.width() as usize == 0 {
+            print!("\n{}",tiles[i])
+        } else {print!("{}",tiles[i])}
+    }
+
+    // for debugs
+    //out_img.save_with_format("process/map/test1d/out.png", ImageFormat::Png)?;
+    println!();
+   
     Ok(())
 }

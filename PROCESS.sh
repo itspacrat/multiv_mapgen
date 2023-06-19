@@ -8,7 +8,7 @@ else
 fi
 cd ../shvft_mapper
 echo "* copying to db.json..."
-cp -v ../db_gist/lvsten_db_default.json db.json;
+cp -v ../db_gist/lvsten_db_shortrgb.json db.json;
 echo "updated database file. processing maps:"
 cat "process.json" && echo ""
 cargo run

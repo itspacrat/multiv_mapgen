@@ -8,3 +8,5 @@
 /test*
 /tst*
 /pallette*
+PROCESS.sh
+db.json

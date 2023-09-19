@@ -28,7 +28,7 @@ pub type Pos = usize;
 #[derive(Serialize, Deserialize)]
 pub struct DBItem {
     description: String,
-    rgb: ShvftRgb,
+    rgb: MvRGB,
     attributes: Vec<String>,
 }
 
@@ -37,13 +37,13 @@ pub type Db = HashMap<u8, DBItem>;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 
-    let input = String::from("process/map/test1d/input.png");
+    let input = String::from("process/map/test/input.png");
 
 
     let save_map = gen_map(input.clone());
     let out_string = to_string_pretty(&save_map?)?;
 
-    let _ = write("process/map/test1d/map.json",out_string);
+    let _ = write("process/map/test/map.json",out_string);
     println!();
    
     Ok(())

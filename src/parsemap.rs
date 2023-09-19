@@ -8,7 +8,7 @@ pub fn img_to_map(data: Img) -> Map {
 pub fn map_to_img(data: Map) -> Img {
     unimplemented!()
 }
-pub fn gen_map(input: String) -> Result<ShvftMap, Box<dyn Error>> {
+pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     println!("\n\n---\n* loading db...");
     let db = from_str::<Db>(&read_to_string("db.json")?)?;
 
@@ -18,6 +18,9 @@ pub fn gen_map(input: String) -> Result<ShvftMap, Box<dyn Error>> {
 
     println!("* creating map boxes...");
     let mut tiles: Vec<u8> = Vec::new();
+
+    //let mut doors: Vec<MvDoor> = Vec::new();
+    //let mut containers: Vec<MvBox> = Vec::new();
 
     println!("* pushing data [{}]...", img.width() * img.height());
     for (p) in img.pixels() {
@@ -30,8 +33,32 @@ pub fn gen_map(input: String) -> Result<ShvftMap, Box<dyn Error>> {
                     [p[0], p[1], p[2]]
                 );
                 tiles.push(*dbindex);
+                
             }
         }
+    }
+
+    for (index, tile) in tiles.iter().enumerate() {
+
+        match *tile {
+            /*4|5 => {
+                doors.push(ShvftDoor{
+                    here: index,
+                    there: 0,
+                    exit_map: format!("exit"),
+                    exit_direction: '.'
+                })
+            }*/
+            /*6 => {
+                containers.push(ShvftContainer {
+                    pos: index,
+                    inventory: vec![0,0,0]
+                })
+            }*/
+
+            _ => {}
+        }
+
     }
 
     let mut out_img = RgbImage::new(img.width(), img.height());
@@ -60,12 +87,14 @@ pub fn gen_map(input: String) -> Result<ShvftMap, Box<dyn Error>> {
     // for debugs
     //out_img.save_with_format("process/map/test1d/out.png", ImageFormat::Png)?;
 
-    let save_map = ShvftMap {
+    let save_map = MvRoom {
         width: img.width() as usize,
         tiles,
-        doors: vec![],
-        notes: vec![],
-        containers: vec![],
+        keys: [vec![],vec![]],
+        id: format!("test_parsed"),
+        //doors,
+        //notes: vec![],
+        //containers,
     };
 
     Ok(save_map)

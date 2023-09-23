@@ -14,7 +14,7 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
 
     println!("* loading image data...");
     let img = open(input)?.to_rgb8();
-    println!("{:?}", img);
+    //println!("{:?}", img);
 
     println!("* creating map boxes...");
     let mut tiles: Vec<u8> = Vec::new();
@@ -23,15 +23,15 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     //let mut containers: Vec<MvBox> = Vec::new();
 
     println!("* pushing data [{}]...", img.width() * img.height());
-    for (p) in img.pixels() {
+    for p in img.pixels() {
         for (dbindex, dbitem) in &db {
             if dbitem.rgb == [p[0], p[1], p[2]] {
-                println!(
+                /*println!(
                     "({}): {:?} == {:?}",
                     dbindex,
                     dbitem.rgb,
                     [p[0], p[1], p[2]]
-                );
+                );*/
                 tiles.push(*dbindex);
                 
             }

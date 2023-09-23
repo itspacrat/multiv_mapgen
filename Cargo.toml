@@ -1,5 +1,5 @@
 [package]
-name = "shvft_mapper"
+name = "multiv_mapgen"
 version = "0.1.0"
 edition = "2021"
 

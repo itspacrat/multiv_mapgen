@@ -6,7 +6,7 @@ then
 else
     git clone https://gist.github.com/3aea75ef1f97e25f9c9284e6914e993e.git ../db_gist
 fi
-cd ../shvft_mapper
+cd ../multiv_mapgen
 echo "* copying to db.json..."
 cp -v ../db_gist/lvsten_db_shortrgb.json db.json;
 echo "updated database file. processing maps:"

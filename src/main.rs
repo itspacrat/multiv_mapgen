@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
 use image::{load, open, GenericImageView};
-use modvlo::*;
+use lib_multiv::*;
 
 use {
     hex::*,

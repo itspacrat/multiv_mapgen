@@ -13,7 +13,7 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     let db = from_str::<Db>(&read_to_string("db.json")?)?;
 
     println!("* loading image data...");
-    let img = open(input)?.to_rgb8();
+    let img = open(input.clone())?.to_rgb8();
     //println!("{:?}", img);
 
     println!("* creating map boxes...");
@@ -86,12 +86,17 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
 
     // for debugs
     //out_img.save_with_format("process/map/test1d/out.png", ImageFormat::Png)?;
+    // todo: use substring or somethign 3head
+    let input_dir = input.clone()[12..]
+    .to_string().chars()
+    .rev().collect::<Vec<char>>()[10..].iter()
+    .rev().collect::<String>();
 
     let save_map = MvRoom {
         width: img.width() as usize,
         tiles,
-        keys: [vec![],vec![]],
-        id: format!("test_parsed"),
+        keys: [vec![],vec![format!("{}",input_dir)]],
+        //id: format!("test_parsed"),// todo remove, redundant
         //doors,
         //notes: vec![],
         //containers,

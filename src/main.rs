@@ -37,14 +37,15 @@ pub type Db = HashMap<u8, DBItem>;
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 
-    let input = String::from("process/map/test/input.png");
+    let input: Vec<String> = from_str(&read_to_string("process.json")?)?;
 
+    for r in input {
+        println!("loading {}",&r);
+        let save_map = gen_map(format!("process/map/{}/input.png",r.clone()))?;
+        let out_string = to_string_pretty(&save_map)?;
+        let _ = write(format!("process/map/{}/data.json",&r),out_string);
+        println!("\n\n{} done.\n", &r);
+    }
 
-    let save_map = gen_map(input.clone());
-    let out_string = to_string_pretty(&save_map?)?;
-
-    let _ = write("process/map/test/map.json",out_string);
-    println!();
-   
     Ok(())
 }

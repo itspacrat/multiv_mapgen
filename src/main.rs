@@ -1,6 +1,6 @@
 #![allow(unused_imports)]
 use image::{load, open, GenericImageView};
-use lib_multiv::*;
+use lib_multiv::{*,player::*,room::*};
 
 use {
     hex::*,

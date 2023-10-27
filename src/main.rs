@@ -36,7 +36,6 @@ pub type Db = HashMap<u8, DBItem>;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
 
-
     let input: Vec<String> = from_str(&read_to_string("process.json")?)?;
 
     for r in input {

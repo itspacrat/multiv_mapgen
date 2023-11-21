@@ -21,6 +21,7 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
 
     //let mut doors: Vec<MvDoor> = Vec::new();
     //let mut containers: Vec<MvBox> = Vec::new();
+    let mut notes: HashMap<Pos,String> = HashMap::new();
 
     println!("* pushing data [{}]...", img.width() * img.height());
     for p in img.pixels() {
@@ -55,6 +56,10 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
                     inventory: vec![0,0,0]
                 })
             }*/
+
+            8 => {
+                notes.insert(index,format!("```\n\na blank piece of notebook paper.\n\n```"));
+            }
 
             _ => {}
         }
@@ -93,9 +98,10 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     .rev().collect::<String>();
 
     let save_map = MvRoom {
-        width: img.width() as usize,
-        tiles,
         keys: [vec![],vec![format!("{}",input_dir)]],
+        width: img.width() as usize,
+        notes,
+        tiles,
         //id: format!("test_parsed"),// todo remove, redundant
         //doors,
         //notes: vec![],

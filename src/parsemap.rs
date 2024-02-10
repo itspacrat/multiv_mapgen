@@ -4,9 +4,11 @@ pub type Map = Vec<u8>;
 
 pub fn img_to_map(data: Img) -> Map {
     unimplemented!()
+    // TODO implement
 }
 pub fn map_to_img(data: Map) -> Img {
     unimplemented!()
+    // TODO implement
 }
 pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     println!("\n\n---\n* loading db...");
@@ -19,7 +21,7 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     println!("* creating map boxes...");
     let mut tiles: Vec<u8> = Vec::new();
 
-    //let mut doors: Vec<MvDoor> = Vec::new();
+    let mut doors: Vec<MvDoor> = Vec::new();
     //let mut containers: Vec<MvBox> = Vec::new();
     let mut notes: HashMap<Pos,String> = HashMap::new();
 
@@ -42,14 +44,14 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     for (index, tile) in tiles.iter().enumerate() {
 
         match *tile {
-            /*4|5 => {
-                doors.push(ShvftDoor{
+            4|5 => {
+                doors.push(MvDoor{
                     here: index,
                     there: 0,
                     exit_map: format!("exit"),
                     exit_direction: '.'
                 })
-            }*/
+            }
             /*6 => {
                 containers.push(ShvftContainer {
                     pos: index,
@@ -100,6 +102,7 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     let save_map = MvRoom {
         keys: [vec![],vec![format!("{}",input_dir)]],
         width: img.width() as usize,
+        doors: doors,
         notes,
         tiles,
         //id: format!("test_parsed"),// todo remove, redundant

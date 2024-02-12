@@ -21,7 +21,7 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     println!("* creating map boxes...");
     let mut tiles: Vec<u8> = Vec::new();
 
-    let mut doors: Vec<MvDoor> = Vec::new();
+    let mut doors: HashMap<String,MvDoor> = HashMap::new();
     //let mut containers: Vec<MvBox> = Vec::new();
     let mut notes: HashMap<Pos,String> = HashMap::new();
 
@@ -45,12 +45,12 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
 
         match *tile {
             4|5 => {
-                doors.push(MvDoor{
+                doors.insert(format!("{index}"),MvDoor{
                     here: index,
                     there: 0,
                     exit_map: format!("exit"),
                     exit_direction: '.'
-                })
+                });
             }
             /*6 => {
                 containers.push(ShvftContainer {

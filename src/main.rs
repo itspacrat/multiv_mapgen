@@ -7,7 +7,7 @@ use {
     image::{
         imageops::{resize, FilterType},
         io::Reader,
-        ImageBuffer, ImageFormat, ImageOutputFormat, Pixel, Rgb, RgbImage, Rgba, RgbaImage,
+        ImageBuffer, ImageFormat, /*ImageOutputFormat,*/ Pixel, Rgb, RgbImage, Rgba, RgbaImage,
     },
     serde::{Deserialize, Serialize},
     serde_json::{from_str, to_string, to_string_pretty, to_value, Value},

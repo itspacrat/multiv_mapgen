@@ -4,11 +4,12 @@ if [ -d "../db_gist" ]
 then
     cd ../db_gist && git pull
 else
-    git clone https://gist.github.com/3aea75ef1f97e25f9c9284e6914e993e.git ../db_gist
+    git clone https://gist.github.com/itspacrat/c4557e52b681bc0ac35b361f08a61597.git ../db_gist
 fi
 cd ../multiv_mapgen
 echo "* copying to db.json..."
-cp -v ../db_gist/lvsten_db_shortrgb.json db.json;
+cp -v ../db_gist/multiv_db.json db.json;
 echo "updated database file. processing maps:"
 cat "process.json" && echo ""
-cargo run
+export CARGO_CONFIG_HOME="."
+cargo run --release

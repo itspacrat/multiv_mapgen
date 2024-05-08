@@ -60,7 +60,7 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
             }*/
 
             8 => {
-                notes.insert(index,format!("```\n\na blank piece of notebook paper.\n\n```"));
+                notes.insert(index,format!("```\n\n📝 a blank piece of notebook paper.\n\n```"));
             }
 
             _ => {}

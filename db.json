@@ -85,8 +85,8 @@
         "attributes":[]
     },
     "17": {
-        "description":"switch tile",
-        "rgb":[214, 200, 94],
+        "description":"toilet tile",
+        "rgb":[123, 188, 87],
         "attributes":[]
     },
     "18": {
@@ -125,12 +125,12 @@
         "attributes":[]
     },
     "25": {
-        "description":"switch tile",
+        "description":"alchemy workbench tile",
         "rgb":[214, 200, 94],
         "attributes":[]
     },
     "26": {
-        "description":"switch tile",
+        "description":"wizardry table tile",
         "rgb":[214, 200, 94],
         "attributes":[]
     },

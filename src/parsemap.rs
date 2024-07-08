@@ -25,6 +25,8 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
     //let mut containers: Vec<MvBox> = Vec::new();
     let mut notes: HashMap<Pos,String> = HashMap::new();
 
+    let mut computers: HashMap<Pos,MvPC> = HashMap::new();
+
     println!("* pushing data [{}]...", img.width() * img.height());
     for p in img.pixels() {
         for (dbindex, dbitem) in &db {
@@ -62,7 +64,9 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
             8 => {
                 notes.insert(index,format!("```\n\n📝 a blank piece of notebook paper.\n\n```"));
             }
-
+            9 => {
+                computers.insert(index, MvPC {tile: None, worker_handle: None, exec: None});
+            }
             _ => {}
         }
 
@@ -104,6 +108,7 @@ pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
         width: img.width() as usize,
         doors: doors,
         notes,
+        computers,
         tiles,
         //id: format!("test_parsed"),// todo remove, redundant
         //doors,

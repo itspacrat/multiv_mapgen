@@ -10,7 +10,7 @@ pub fn map_to_img(data: Map) -> Img {
     unimplemented!()
     // TODO implement
 }
-pub fn gen_map(input: String) -> Result<MvRoom, Box<dyn Error>> {
+pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Box<dyn Error>> {
     println!("\n\n---\n* loading db...");
     let db = from_str::<Db>(&read_to_string("db.json")?)?;
 

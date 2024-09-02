@@ -49,7 +49,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             match read_to_string(format!("process/map/{}/overrides.json", r.clone())) {
                 Ok(p) => Some(from_str(&p)?),
                 Err(e) => {
-                    println!("OVERRIDE IGNORE: {:?}", e);
+                    println!("ignoring override for '{}'.\n({:?})",&r,e);
                     None
                 }
             }

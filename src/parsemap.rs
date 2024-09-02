@@ -85,8 +85,29 @@ pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Bo
         );
     }
 
+    match overrides {
+        None => {/* skip overrides application if none */}
+        Some(over) => {
+            match over.notes {
+                None => {/* keep defaults */}
+                Some(n) => {println!("applying notes override."); notes = n}
+            };
+            match over.doors {
+                None => {/* keep defaults */}
+                Some(d) => {println!("applying doors override.");doors = d}
+            };
+            match over.computers {
+                None => {/* keep defaults */}
+                Some(c) => {println!("applying computers override.");computers = c}
+            };
+
+        }
+    }
+
     println!("\n* done.");
 
+    /*
+    // DEBUGS
     for i in 0..tiles.len() {
         if i % img.width() as usize == 0 {
             print!("\n{}", tiles[i])
@@ -94,6 +115,7 @@ pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Bo
             print!("{}", tiles[i])
         }
     }
+    */
 
     // for debugs
     //out_img.save_with_format("process/map/test1d/out.png", ImageFormat::Png)?;

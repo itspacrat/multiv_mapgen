@@ -44,7 +44,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let input: Vec<String> = from_str(&read_to_string("process.json")?)?;
 
     for r in input {
-        println!("loading {}", &r);
+        println!("~~~\nloading {}", &r);
         let overrides: Option<Overrides> = {
             match read_to_string(format!("process/map/{}/overrides.json", r.clone())) {
                 Ok(p) => Some(from_str(&p)?),
@@ -58,7 +58,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         let out_string = to_string_pretty(&save_map)?;
         let _ = write(format!("process/map/{}/data.json", &r), out_string);
-        println!("\n\n{} done.\n", &r);
+        println!("{} done.\n", &r);
     }
 
     Ok(())

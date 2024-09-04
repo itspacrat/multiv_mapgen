@@ -11,7 +11,7 @@ pub fn map_to_img(data: Map) -> Img {
     // TODO implement
 }
 pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Box<dyn Error>> {
-    println!("\n\n---\n* loading db...");
+    println!("* loading db...");
     let db = from_str::<Db>(&read_to_string("db.json")?)?;
 
     println!("* loading image data...");
@@ -103,9 +103,6 @@ pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Bo
 
         }
     }
-
-    println!("\n* done.");
-
     /*
     // DEBUGS
     for i in 0..tiles.len() {

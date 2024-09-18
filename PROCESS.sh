@@ -7,6 +7,8 @@ else
     git clone https://gist.github.com/itspacrat/c4557e52b681bc0ac35b361f08a61597.git ../db_gist
 fi
 cd ../multiv_mapgen
+echo "* copying to weather.json..."
+cp -v ../db_gist/weather_map.json weather.json;
 echo "* copying to db.json..."
 cp -v ../db_gist/multiv_db.json db.json;
 echo "updated database file. processing maps:"

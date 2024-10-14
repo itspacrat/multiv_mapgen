@@ -27,6 +27,8 @@ pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Bo
 
     let mut computers: HashMap<Pos,MvPC> = HashMap::new();
 
+    let mut weathering_overrides: Option<WeatherMapOverrides> = None;
+
     println!("* pushing data [{}]...", img.width() * img.height());
     for p in img.pixels() {
         for (dbindex, dbitem) in &db {
@@ -48,7 +50,6 @@ pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Bo
         match *tile {
             4|5 => {
                 doors.insert(format!("{index}"),MvDoor{
-                    here: index,
                     there: 0,
                     exit_map: format!("exit"),
                     exit_direction: '.'
@@ -94,11 +95,11 @@ pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Bo
             };
             match over.doors {
                 None => {/* keep defaults */}
-                Some(d) => {println!("applying doors override.");doors = d}
+                Some(d) => {println!("applying doors override."); doors = d}
             };
             match over.computers {
                 None => {/* keep defaults */}
-                Some(c) => {println!("applying computers override.");computers = c}
+                Some(c) => {println!("applying computers override."); computers = c}
             };
 
         }
@@ -129,6 +130,7 @@ pub fn gen_map(input: String, overrides: Option<Overrides>) -> Result<MvRoom, Bo
         notes,
         computers,
         tiles,
+        weathering_overrides,
         //id: format!("test_parsed"),// todo remove, redundant
         //doors,
         //notes: vec![],
